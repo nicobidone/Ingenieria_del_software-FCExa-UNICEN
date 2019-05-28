@@ -10,7 +10,7 @@ public class MainPresenter {
         this.model = model;
     }
 
-
-
-
+    public void show_gc_map() {
+        view.show_graphic(model.get_gc_region());
+    }
 }

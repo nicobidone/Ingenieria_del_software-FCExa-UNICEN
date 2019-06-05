@@ -1,15 +1,17 @@
-package com.unicen.exa.ingenieria;
+package com.unicen.exa.ingenieria.geo_charts;
 
 import android.app.Activity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MainView {
+import com.unicen.exa.ingenieria.R;
+
+public class GeoChartView {
 
     private Activity activity;
     private static final String id_app  = "Android";
 
-    public MainView(Activity activity) {
+    public GeoChartView(Activity activity) {
         this.activity = activity;
     }
 

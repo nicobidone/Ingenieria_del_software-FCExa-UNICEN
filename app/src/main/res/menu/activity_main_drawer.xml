@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/title_any_charts">
+        <menu>
+            <item
+                android:id="@+id/nav_any_charts"
+                android:icon="@drawable/ic_pie_chart"
+                android:title="@string/menu_any_charts" />
+        </menu>
+    </item>
+    <item android:title="@string/title_mpandroid_charts">
+        <menu>
+            <item
+                android:id="@+id/nav_mpandroid_charts"
+                android:icon="@drawable/ic_analytics"
+                android:title="@string/menu_mpandroid_charts" />
+        </menu>
+    </item>
+    <item android:title="@string/title_geo_charts">
+        <menu>
+            <item
+                android:id="@+id/nav_region_geo_charts"
+                android:icon="@drawable/ic_world_map"
+                android:title="@string/menu_region_geo_charts" />
+        </menu>
+    </item>
+
+</menu>

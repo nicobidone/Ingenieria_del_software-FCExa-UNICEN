@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Ingenieria 2019</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_mpandroid_charts">MPAndroid Charts</string>
+    <string name="menu_geo_charts">GeoCharts</string>
+    <string name="menu_region_geo_charts">Region GeoCharts</string>
+    <string name="menu_any_charts">AnyCharts</string>
+    <string name="title_geo_charts">Geo Charts</string>
+    <string name="title_any_charts">Any Charts</string>
+    <string name="title_mpandroid_charts">MPAndroid Charts</string>
 </resources>

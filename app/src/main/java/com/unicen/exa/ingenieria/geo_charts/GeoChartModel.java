@@ -1,6 +1,6 @@
-package com.unicen.exa.ingenieria;
+package com.unicen.exa.ingenieria.geo_charts;
 
-public class MainModel {
+public class GeoChartModel {
 
     private static final String gc_region = "file:///android_asset/geocharts_region.html";
 

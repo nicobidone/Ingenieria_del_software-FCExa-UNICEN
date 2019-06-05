@@ -1,4 +1,4 @@
-package com.unicen.exa.ingenieria;
+package com.unicen.exa.ingenieria.geo_charts;
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;

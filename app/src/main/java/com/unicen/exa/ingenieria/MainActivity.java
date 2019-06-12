@@ -3,7 +3,11 @@ package com.unicen.exa.ingenieria;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,17 @@ import com.unicen.exa.ingenieria.geo_charts.GeoChartActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
+
+    private Fragment fragment1;
+    private Fragment fragment2;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
+
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,29 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Fragments
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.pager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        /**
+         * Solo creo las instancias de los fragments en la primera creacion de la activity
+         * Los Fragments persisten en memoria... por eso estan los sets en el FragmentsListener
+         * Que se lleman en los onAttach de los fragments (cuando se gira el telefono o vuelve la app de segundo plano)
+         * OJO!! Si no se hace esto quedan fragments repetidos en memoria y mal vinculados con la Activity
+         */
+        if (savedInstanceState == null) {
+            fragment1 = new SettingsFragment();
+            fragment2 = new SettingsFragment();
+        }
+
+        FragmentManager manager = getSupportFragmentManager();
+        pagerAdapter = new PagerAdapter(manager);
+        pagerAdapter.addFragment(fragment1, "Fragment 1");
+        pagerAdapter.addFragment(fragment2, "Fragment 2");
+        viewPager.setAdapter(pagerAdapter);
+
     }
 
     @Override
@@ -94,5 +132,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("counter", counter);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null)
+            counter = savedInstanceState.getInt("counter");
     }
 }

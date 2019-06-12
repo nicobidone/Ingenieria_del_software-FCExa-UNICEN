@@ -15,4 +15,7 @@
     <string name="title_geo_charts">Geo Charts</string>
     <string name="title_any_charts">Any Charts</string>
     <string name="title_mpandroid_charts">MPAndroid Charts</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

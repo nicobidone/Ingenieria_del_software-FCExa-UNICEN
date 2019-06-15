@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -15,15 +16,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.unicen.exa.ingenieria.chart_fragment.ChartsFragment;
 import com.unicen.exa.ingenieria.geo_charts.GeoChartActivity;
+import com.unicen.exa.ingenieria.settings_fragment.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
-    private Fragment fragment1;
-    private Fragment fragment2;
+    private Fragment chartsFragment;
+    private Fragment settingsFragment;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -67,14 +70,14 @@ public class MainActivity extends AppCompatActivity
          * OJO!! Si no se hace esto quedan fragments repetidos en memoria y mal vinculados con la Activity
          */
         if (savedInstanceState == null) {
-            fragment1 = new SettingsFragment();
-            fragment2 = new SettingsFragment();
+            chartsFragment = new SettingsFragment();
+            settingsFragment = new SettingsFragment();
         }
 
         FragmentManager manager = getSupportFragmentManager();
         pagerAdapter = new PagerAdapter(manager);
-        pagerAdapter.addFragment(fragment1, "Fragment 1");
-        pagerAdapter.addFragment(fragment2, "Fragment 2");
+        pagerAdapter.addFragment(chartsFragment, "ChartsFragment");
+        pagerAdapter.addFragment(settingsFragment, "SettingsFragment");
         viewPager.setAdapter(pagerAdapter);
 
     }
@@ -126,6 +129,26 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_any_charts) {
 
         } else if (id == R.id.nav_mpandroid_charts) {
+//            pagerAdapter.deleteLastFragment();
+//            ChartsFragment chartsFragment = new ChartsFragment();
+//            pagerAdapter.addFragment();
+//
+//            pagerAdapter.addFragment(chartsFragment, "ChartsFragment");
+
+            ChartsFragment newFragment = new ChartsFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", 0);
+            newFragment.setArguments(args);
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.tab_layout, newFragment);
+            transaction.addToBackStack(null);
+
+// Commit the transaction
+            transaction.commit();
 
         }
 
@@ -146,4 +169,18 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null)
             counter = savedInstanceState.getInt("counter");
     }
+
+    @Override
+    public void onFragmentInteraction(int data) {
+
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof SettingsFragment) {
+            SettingsFragment settingsFragment = (SettingsFragment) fragment;
+            settingsFragment.setOnFragmentInteractionListener(this);
+        }
+    }
+
 }

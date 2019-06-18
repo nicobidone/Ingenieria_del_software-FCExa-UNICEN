@@ -26,12 +26,12 @@ public class GeoChartFragment extends Fragment {
         WebView myWebView = (WebView) view.findViewById(R.id.webview_geochart);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());
-        myWebView.getSettings().setSupportZoom(true);
-        myWebView.getSettings().setBuiltInZoomControls(true);
-        myWebView.getSettings().setDisplayZoomControls(false);
-        myWebView.getSettings().setUseWideViewPort(true);
+//        myWebView.getSettings().setSupportZoom(true);
+//        myWebView.getSettings().setBuiltInZoomControls(true);
+//        myWebView.getSettings().setDisplayZoomControls(false);
+//        myWebView.getSettings().setUseWideViewPort(true);
 
-        //myWebView.addJavascriptInterface(new WebAppInterface(getActivity()), id_app);
+        myWebView.addJavascriptInterface(new WebAppInterface(getActivity()), id_app);
         myWebView.loadUrl("file:///android_asset/geocharts_region.html");
 
         return view;

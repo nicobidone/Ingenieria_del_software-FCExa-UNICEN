@@ -1,4 +1,7 @@
-package com.unicen.exa.ingenieria.geo_charts;
+package com.unicen.exa.ingenieria.geo_charts.presenter;
+
+import com.unicen.exa.ingenieria.geo_charts.model.GeoChartModel;
+import com.unicen.exa.ingenieria.geo_charts.view.GeoChartView;
 
 public class GeoChartPresenter {
 

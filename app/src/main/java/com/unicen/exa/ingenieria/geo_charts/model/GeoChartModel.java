@@ -1,4 +1,4 @@
-package com.unicen.exa.ingenieria.geo_charts;
+package com.unicen.exa.ingenieria.geo_charts.model;
 
 public class GeoChartModel {
 

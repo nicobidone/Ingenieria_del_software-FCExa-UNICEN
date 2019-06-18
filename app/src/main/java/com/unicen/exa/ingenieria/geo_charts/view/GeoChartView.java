@@ -1,4 +1,4 @@
-package com.unicen.exa.ingenieria.geo_charts;
+package com.unicen.exa.ingenieria.geo_charts.view;
 
 import android.app.Activity;
 import android.webkit.WebView;
@@ -16,7 +16,7 @@ public class GeoChartView {
     }
 
     public void show_graphic(String addr){
-        WebView myWebView = (WebView) activity.findViewById(R.id.webview);
+        WebView myWebView = (WebView) activity.findViewById(R.id.webview_geochart);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());
         myWebView.getSettings().setSupportZoom(true);

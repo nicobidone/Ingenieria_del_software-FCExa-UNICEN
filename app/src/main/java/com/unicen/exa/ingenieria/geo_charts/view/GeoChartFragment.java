@@ -10,12 +10,13 @@ import android.webkit.WebViewClient;
 
 import com.unicen.exa.ingenieria.R;
 
-public class GeoChartFragment extends Fragment {
+import java.io.Serializable;
+
+public class GeoChartFragment extends Fragment implements Serializable {
 
     public static final String TAG = "GeoChartFragment";
     private static final String id_app  = "Android";
     private static final String addr = "file:///android_asset/geocharts_region.html";
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

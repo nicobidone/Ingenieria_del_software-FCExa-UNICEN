@@ -28,7 +28,15 @@ implements NavigationView.OnNavigationItemSelectedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setToolbar();
 
+        /* Instantiate a ViewPager and a PagerAdapter. */
+        mPager = (ViewPager) findViewById(R.id.pager);
+        //mPagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(), new FirstFragment(), new SecondFragment());
+        mPager.setAdapter(mPagerAdapter);
+    }
+
+    public void setToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -37,11 +45,6 @@ implements NavigationView.OnNavigationItemSelectedListener {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        /* Instantiate a ViewPager and a PagerAdapter. */
-        mPager = (ViewPager) findViewById(R.id.pager);
-        //mPagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(), new FirstFragment(), new SecondFragment());
-        mPager.setAdapter(mPagerAdapter);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

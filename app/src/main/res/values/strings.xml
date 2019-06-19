@@ -25,4 +25,19 @@
     <string name="to_second_fragment">Change to second fragment</string>
     <string name="to_static_fragment">Change to static fragment</string>
 
+
+    <string name="country_prompt">Choose a country</string>
+
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
+
 </resources>

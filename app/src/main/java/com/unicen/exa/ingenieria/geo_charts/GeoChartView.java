@@ -6,6 +6,8 @@ import android.webkit.WebViewClient;
 
 import com.unicen.exa.ingenieria.R;
 
+import java.util.HashMap;
+
 public class GeoChartView {
 
     private Activity activity;
@@ -15,7 +17,7 @@ public class GeoChartView {
         this.activity = activity;
     }
 
-    public void show_graphic(String addr){
+    public void show_graphic(String addr, HashMap<String, Integer> result){
         WebView myWebView = (WebView) activity.findViewById(R.id.webview);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());
@@ -24,7 +26,7 @@ public class GeoChartView {
         myWebView.getSettings().setDisplayZoomControls(false);
         myWebView.getSettings().setUseWideViewPort(true);
 
-        myWebView.addJavascriptInterface(new WebAppInterface(activity.getApplication()), id_app);
+        myWebView.addJavascriptInterface(new WebAppInterface(activity.getApplication(), result), id_app);
         myWebView.loadUrl(addr);
     }
 

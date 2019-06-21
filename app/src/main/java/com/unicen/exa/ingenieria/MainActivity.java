@@ -13,8 +13,16 @@ import android.view.MenuItem;
 
 import com.unicen.exa.ingenieria.geo_charts.GeoChartActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private HashMap<String, Integer> result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,31 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        InputStream inputStream = getResources().openRawResource(R.raw.data);
+
+        result = new HashMap<String, Integer>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                if(result.containsKey(row[3]))
+                    result.put(row[3], result.get(row[3])+1);
+                else
+                    result.put(row[3], 1);
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
     }
 
     @Override
@@ -84,6 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_region_geo_charts) {
             intent = new Intent(this, GeoChartActivity.class);
+            intent.putExtra("result", result);
             startActivity(intent);
         } else if (id == R.id.nav_any_charts) {
 

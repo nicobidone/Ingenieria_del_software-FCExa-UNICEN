@@ -15,16 +15,8 @@
         var lista = Android.getInts();
         lista = JSON.parse(lista);
 
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', lista[0]],
-          ['United States', lista[1]],
-          ['Brazil', lista[2]],
-          ['Canada', 500],
-          ['France', 600],
-          ['Argentina', 700],
-          ['RU', 1000]
-        ]);
+
+        var data = google.visualization.arrayToDataTable(lista);
 
         var options = {};
 

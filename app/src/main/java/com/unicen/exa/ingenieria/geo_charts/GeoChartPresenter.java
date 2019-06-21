@@ -11,6 +11,6 @@ public class GeoChartPresenter {
     }
 
     public void show_gc_map() {
-        view.show_graphic(model.get_gc_region());
+        view.show_graphic(model.get_gc_region(), model.getResult());
     }
 }

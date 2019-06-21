@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.unicen.exa.ingenieria.R;
 
+import java.util.HashMap;
+
 public class GeoChartActivity extends AppCompatActivity {
 
     private GeoChartPresenter presenter;
@@ -14,7 +16,8 @@ public class GeoChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_chart);
 
-        presenter = new GeoChartPresenter(new GeoChartView(this), new GeoChartModel());
+
+        presenter = new GeoChartPresenter(new GeoChartView(this), new GeoChartModel((HashMap<String, Integer>) getIntent().getSerializableExtra("result")));
 
         presenter.show_gc_map();
     }

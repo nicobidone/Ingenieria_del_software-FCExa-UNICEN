@@ -22,12 +22,15 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0)
-            return first;
-        else
-            return second;
+        switch (position) {
+            case 0:
+                return first;
+            case 1:
+                return second;
+            default:
+                return null;
+        }
     }
-
 
     @Override
     public int getCount() {

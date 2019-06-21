@@ -4,11 +4,11 @@ import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-public class WebAppInterface {
+public class RegionsWebAppInterface {
     Context mContext;
 
     /** Instantiate the interface and set the context */
-    WebAppInterface(Context c) {
+    RegionsWebAppInterface(Context c) {
         mContext = c;
     }
 

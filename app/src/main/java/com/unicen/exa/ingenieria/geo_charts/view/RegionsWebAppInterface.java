@@ -8,7 +8,7 @@ public class RegionsWebAppInterface {
     Context mContext;
 
     /** Instantiate the interface and set the context */
-    RegionsWebAppInterface(Context c) {
+    public RegionsWebAppInterface(Context c) {
         mContext = c;
     }
 

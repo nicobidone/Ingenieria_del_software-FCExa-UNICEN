@@ -36,7 +36,7 @@ public class RegionsActivity extends MainActivity {
         tabLayout.setupWithViewPager(mPager);
         super.setTabsText(tabLayout);
 
-//        presenter = new RegionsPresenter(new RegionsView(regionsFragment, regionsSettingsFragment), new RegionsModel());
+//        presenter = new RegionsPresenter(new RegionsViewModel(regionsFragment, regionsSettingsFragment), new RegionsModel());
     }
 
 

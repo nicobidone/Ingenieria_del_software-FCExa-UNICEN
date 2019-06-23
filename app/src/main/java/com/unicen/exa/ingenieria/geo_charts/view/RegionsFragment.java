@@ -1,15 +1,19 @@
 package com.unicen.exa.ingenieria.geo_charts.view;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.unicen.exa.ingenieria.R;
 
@@ -26,7 +30,14 @@ public class RegionsFragment extends Fragment implements Serializable {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_regions, container, false);
-        WebView myWebView = (WebView) view.findViewById(R.id.webview_geochart);
+        WebView myWebView = view.findViewById(R.id.webview_geochart);
+        Button button = view.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new RegionsFragment());
+            }
+        });
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());
         myWebView.getSettings().setSupportZoom(true);
@@ -35,17 +46,25 @@ public class RegionsFragment extends Fragment implements Serializable {
         myWebView.getSettings().setUseWideViewPort(true);
         myWebView.addJavascriptInterface(new RegionsWebAppInterface(getActivity()), id_app);
         myWebView.loadUrl(addr);
-
         return view;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        RegionsView model = ViewModelProviders.of(getActivity()).get(RegionsView.class);
-//        model.getSelected().observe(this,
-//                o -> this.replaceFragment(new RegionsFragment()));
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (getActivity() != null) {
+            RegionsViewModel model = ViewModelProviders.of(getActivity()).get(RegionsViewModel.class);
+            model.getSelected().observe(this, new Observer<Object>() {
+                @Override
+                public void onChanged(@Nullable Object o) {
+                    if ((boolean)o) {
+                        replaceFragment(new RegionsFragment());
+                        model.select(false);
+                        Log.i(TAG,"New fragment set");
+                    }
+                }
+            });
+        }
     }
 
     public void replaceFragment(Fragment regionsFragment) {

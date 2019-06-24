@@ -42,27 +42,16 @@ public class WebAppInterface {
     }
 
     private String a1dToJson(HashMap<String, Integer> data) {
-        String res = "[" + "\n" + "['Country', 'Popularity'],"+"\n";
-        /*for( String key : data.keySet()){
-            res+= "["+ "\'"+ key + "\'" + "," + data.get(key) + "],"+"\n";
-        }*/
-        res+="['Canada', 500],"+"\n";
-        res+= "['France', 600],"+"\n";
-        res+= "['Argentina', 700],"+"\n";
-        res+= "['RU', 1000]";
-        //res = res.substring(0, res.length()-2);
-       /* String[][] array = new String[data.size()][2];
-        int count = 1;
-        array[0][0] = "Countries";
-        array[0][0] = "Popularity";
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        int i=0;
         for (Map.Entry<String, Integer> entry : data.entrySet()) {
-            array[count][0] = entry.getKey();
-            array[count][1] = entry.getValue().toString();
-            count++;
+            if (i > 0)
+                sb.append(",");
+            sb.append("\""+entry.getKey()+"\""+","+entry.getValue());
+            i++;
         }
-        Log.d("array", data.toString());
-        return array;*/
-       res+="\n"+"]";
-       return res;
+        sb.append("]");
+        return sb.toString();
     }
 }

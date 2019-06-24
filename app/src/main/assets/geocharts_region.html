@@ -7,22 +7,24 @@
         'packages':['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        'mapsApiKey': 'AIzaSyD4kyr1zB6g2bqB_N99QpofixA4xPovy7U'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
 
       function drawRegionsMap() {
         var hash = Android.getInts();
-        console.log(hash);
-        hash = JSON.parse(has
+        //console.log(hash);
+        hash = JSON.parse(hash);
 
         var data = new google.visualization.DataTable();
         data.addColumn('string','Country');
         data.addColumn('number','Population');
-        for(var i=0 ; i < hash.lenght ; i+2){
-            data.addRows(hash[i], hash[i+1]);
+        var i = 0;
+        while(i < 15){
+            data.addRow(['hash[i]', (hash[i+1]*100)]);
+            i=i+2;
         }
-
+        console.log(data);
         var options = {};
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));

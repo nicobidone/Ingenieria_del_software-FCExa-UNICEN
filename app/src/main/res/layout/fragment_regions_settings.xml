@@ -20,13 +20,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:text="TextView" />
+            android:text="Continent" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/country_arrays"/>
+            android:entries="@array/continents_array"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/margin_setting_fragment"
+        app:layout_constraintTop_toTopOf="@id/row"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:text="Country" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sub_continents_array"/>
 
     </TableRow>
 
@@ -35,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
-        app:layout_constraintTop_toBottomOf="@id/row"
+        app:layout_constraintTop_toBottomOf="@id/row2"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="@dimen/margin_setting_fragment"/>
 

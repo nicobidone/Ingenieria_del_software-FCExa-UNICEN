@@ -1,4 +1,4 @@
-package com.unicen.exa.ingenieria.geo_charts.view;
+package com.unicen.exa.ingenieria.geo_charts.view.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -24,12 +24,7 @@ public class RegionsSettingsFragment extends Fragment {
 
         if (getActivity() != null) {
             model = ViewModelProviders.of(getActivity()).get(RegionsViewModel.class);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    model.select(true);
-                }
-            });
+            button.setOnClickListener(v -> model.select(true));
         }
 
         return view;

@@ -28,15 +28,20 @@
 
     <string name="country_prompt">Choose a country</string>
 
-    <string-array name="country_arrays">
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+    <string-array name="continents_array">
+        <item>002 - Africa</item>
+        <item>150 - Europe</item>
+        <item>019 - Americas</item>
+        <item>142 - Asia</item>
+        <item>009 - Oceania</item>
+    </string-array>
+
+    <string-array name="sub_continents_array">
+        <item>015 - Northern Africa</item>
+        <item>011 - Western Africa</item>
+        <item>017 - Middle Africa</item>
+        <item>014 - Eastern Africa</item>
+        <item>018 - Southern Africa</item>
     </string-array>
 
 

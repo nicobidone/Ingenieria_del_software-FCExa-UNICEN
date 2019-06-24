@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_region_geo_charts) {
             intent = new Intent(this, GeoChartActivity.class);
-            intent.putExtra("result", result);
+            intent.putExtra("result", this.result);
             startActivity(intent);
         } else if (id == R.id.nav_any_charts) {
 

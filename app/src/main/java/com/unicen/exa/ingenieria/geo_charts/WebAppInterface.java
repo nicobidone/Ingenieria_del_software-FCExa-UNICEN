@@ -20,7 +20,7 @@ public class WebAppInterface {
      */
     WebAppInterface(Context c, HashMap<String, Integer> result) {
         mContext = c;
-        this.result = result;
+        this.result = new HashMap<String, Integer>(result);
     }
 
     /**
@@ -32,8 +32,8 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public String[][] getInts() {
-        return a1dToJson(result);
+    public String getInts() {
+        return a1dToJson(this.result).toString();
     }
 
     @JavascriptInterface
@@ -41,8 +41,17 @@ public class WebAppInterface {
         return 100;
     }
 
-    private String[][] a1dToJson(HashMap<String, Integer> data) {
-        String[][] array = new String[data.size()][2];
+    private String a1dToJson(HashMap<String, Integer> data) {
+        String res = "[" + "\n" + "['Country', 'Popularity'],"+"\n";
+        /*for( String key : data.keySet()){
+            res+= "["+ "\'"+ key + "\'" + "," + data.get(key) + "],"+"\n";
+        }*/
+        res+="['Canada', 500],"+"\n";
+        res+= "['France', 600],"+"\n";
+        res+= "['Argentina', 700],"+"\n";
+        res+= "['RU', 1000]";
+        //res = res.substring(0, res.length()-2);
+       /* String[][] array = new String[data.size()][2];
         int count = 1;
         array[0][0] = "Countries";
         array[0][0] = "Popularity";
@@ -52,6 +61,8 @@ public class WebAppInterface {
             count++;
         }
         Log.d("array", data.toString());
-        return array;
+        return array;*/
+       res+="\n"+"]";
+       return res;
     }
 }

@@ -12,11 +12,11 @@
       google.charts.setOnLoadCallback(drawRegionsMap);
 
       function drawRegionsMap() {
-        var lista = Android.getInts();
-        lista = JSON.parse(lista);
+        var hash = Android.getInts();
+        hash = JSON.parse(hash);
 
 
-        var data = google.visualization.arrayToDataTable(lista);
+        var data = google.visualization.arrayToDataTable(hash);
 
         var options = {};
 

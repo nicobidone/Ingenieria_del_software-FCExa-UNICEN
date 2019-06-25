@@ -15,6 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.unicen.exa.ingenieria.geo_charts.RegionsActivity;
+import com.unicen.exa.ingenieria.histogram_chart.HistogramActivity;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity
 implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +32,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
 
     ViewPager mPager;
     SlidePagerAdapter mPagerAdapter;
+    private HashMap<String, Integer> result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,34 @@ implements NavigationView.OnNavigationItemSelectedListener {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        InputStream inputStream = getResources().openRawResource(R.raw.data);
+
+        result = new HashMap<String, Integer>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                if(result.containsKey(row[3]))
+                    result.put(row[3], result.get(row[3])+1);
+                else
+                    result.put(row[3], 1);
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: "+ex);
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: "+e);
+            }
+        }
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -64,7 +99,9 @@ implements NavigationView.OnNavigationItemSelectedListener {
         } else if (id == R.id.nav_any_charts) {
 
         } else if (id == R.id.nav_mpandroid_charts) {
-
+            Intent i = new Intent(MainActivity.this, HistogramActivity.class);
+            i.putExtra("result", result);
+            startActivity(i);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

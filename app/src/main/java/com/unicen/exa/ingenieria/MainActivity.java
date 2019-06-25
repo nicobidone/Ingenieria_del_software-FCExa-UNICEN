@@ -35,9 +35,7 @@ implements NavigationView.OnNavigationItemSelectedListener {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setVisibility(View.GONE);
 
-        /* Instantiate a ViewPager and a PagerAdapter. */
-        mPager = (ViewPager) findViewById(R.id.pager);
-        //mPagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(), new FirstFragment(), new SecondFragment());
+        mPager = findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
     }
 

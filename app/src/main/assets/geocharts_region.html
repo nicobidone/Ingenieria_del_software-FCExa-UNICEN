@@ -14,10 +14,15 @@
       function drawRegionsMap() {
         var lista = Android.getInts();
         lista = JSON.parse(lista);
+        console.log(lista);
+        var lista2 = Android.getStrings();
+        lista2 = JSON.parse(lista2);
+        console.log(lista2);
+        console.log(lista2[0]);
 
         var data = google.visualization.arrayToDataTable([
           ['Country', 'Popularity'],
-          ['Germany', lista[0]],
+          [lista2[0], lista[0]],
           ['United States', lista[1]],
           ['Brazil', lista[2]],
           ['Canada', 500],

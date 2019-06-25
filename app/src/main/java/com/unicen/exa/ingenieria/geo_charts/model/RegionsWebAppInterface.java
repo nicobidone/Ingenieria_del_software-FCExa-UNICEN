@@ -1,14 +1,16 @@
-package com.unicen.exa.ingenieria.geo_charts;
+package com.unicen.exa.ingenieria.geo_charts.model;
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-public class WebAppInterface {
+import java.io.Serializable;
+
+public class RegionsWebAppInterface implements Serializable {
     Context mContext;
 
     /** Instantiate the interface and set the context */
-    WebAppInterface(Context c) {
+    public RegionsWebAppInterface(Context c) {
         mContext = c;
     }
 
@@ -28,8 +30,12 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public Integer getInt(){
-        return 100;
+    public String getStrings(){
+        String[] aux = new String[3];
+        aux[0] = "Germany";
+        aux[1] = "United States";
+        aux[2] = "Brazil";
+        return aStToJson(aux).toString();
     }
 
     private String a1dToJson(Integer[] data) {
@@ -41,6 +47,24 @@ public class WebAppInterface {
                 sb.append(",");
             sb.append(d);
         }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private String aStToJson(String[] data) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for (int i = 0; i < data.length; i++) {
+            String d = data[i];
+            sb.append("\"");
+            if (i > 0){
+                sb.append(",");
+                sb.append("\"");
+            }
+            sb.append(d);
+        }
+
+        sb.append("\"");
         sb.append("]");
         return sb.toString();
     }

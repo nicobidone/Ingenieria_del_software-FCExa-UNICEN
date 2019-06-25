@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import com.unicen.exa.ingenieria.R;
 import com.unicen.exa.ingenieria.RootFragment;
 import com.unicen.exa.ingenieria.SlidePagerAdapter;
+import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsFragment;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsSettingsFragment;
 
@@ -23,7 +24,7 @@ public class RegionsView {
     private SlidePagerAdapter mPagerAdapter;
 
     public RegionsView(Activity activity, FragmentManager supportFragmentManager){
-        Fragment regionsFragment = new RegionsFragment();
+        Fragment regionsFragment = RegionsFragment.newInstance(new RegionsWebAppInterface(activity));
         Fragment regionsSettingsFragment = new RegionsSettingsFragment();
 
         mPager = activity.findViewById(R.id.pager);

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-public class RegionsWebAppInterface {
+import java.io.Serializable;
+
+public class RegionsWebAppInterface implements Serializable {
     Context mContext;
 
     /** Instantiate the interface and set the context */

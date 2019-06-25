@@ -25,9 +25,25 @@ public class RegionsFragment extends Fragment implements Serializable {
     private static final String id_app = "Android";
     private String addr = "file:///android_asset/geocharts_region.html";
 
+    private Serializable wai;
+    public static RegionsFragment newInstance(RegionsWebAppInterface wai) {
+
+        Bundle args = new Bundle();
+        args.putSerializable("wai", (Serializable) wai);
+
+        RegionsFragment fragment = new RegionsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            wai = arguments.getSerializable("wai");
+        }
 
         View view = inflater.inflate(R.layout.fragment_regions, container, false);
         WebView myWebView = view.findViewById(R.id.webview_geochart);
@@ -40,7 +56,7 @@ public class RegionsFragment extends Fragment implements Serializable {
         myWebView.getSettings().setBuiltInZoomControls(true);
         myWebView.getSettings().setDisplayZoomControls(false);
         myWebView.getSettings().setUseWideViewPort(true);
-        myWebView.addJavascriptInterface(new RegionsWebAppInterface(getActivity()), id_app);
+        myWebView.addJavascriptInterface((RegionsWebAppInterface) wai, id_app);
         myWebView.loadUrl(addr);
         return view;
     }

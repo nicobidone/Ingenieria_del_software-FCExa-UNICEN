@@ -7,10 +7,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -45,30 +48,38 @@ public class HistogramActivity extends AppCompatActivity {
         barchart.setDrawGridBackground(true);
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        ArrayList<String> countries = new ArrayList();
+        ArrayList<String> countries = new ArrayList<String>();
         int i = 0;
-        for(String key : result.keySet()){
-            barEntries.add(new BarEntry(result.get(key),i));
+        for (String key : result.keySet()) {
+            barEntries.add(new BarEntry(result.get(key), i));
             countries.add(key);
             i++;
         }
 
 
-
         BarDataSet dataSet = new BarDataSet(barEntries, "Countries");
-        BarData data = new BarData(countries, dataSet);
-
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        BarData data = new BarData(dataSet);
 
         barchart.setData(data);
         barchart.getLegend().setEnabled(false);
-        barchart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                country_selected.setText(countries.get(e.getXIndex()));
 
-                float a = e.getVal();
-                country_downloads.setText(String.valueOf(e.getVal()));
+        /*XAxis xaxis = barchart.getXAxis();
+        xaxis.setValueFormatter(new MyAxisValueFormatter(countries));
+        xaxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xaxis.setGranularity(1);
+        xaxis.setCenterAxisLabels(true);
+        xaxis.setAxisMinimum(1);*/
+
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+
+        /*barchart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                country_selected.setText(countries.get((int)e.getX()));
+                int a = e.describeContents();
+
+                country_downloads.setText(String.valueOf(e.describeContents()));
             }
 
             @Override
@@ -76,6 +87,24 @@ public class HistogramActivity extends AppCompatActivity {
 
             }
         });
-
+*/
     }
+
+
+    public class MyAxisValueFormatter implements IAxisValueFormatter{
+        private ArrayList<String> mValues;
+
+        public MyAxisValueFormatter(ArrayList<String> values){
+            this.mValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            if((int) value < mValues.size())
+                return mValues.get((int) value);
+            else
+                return "";
+        }
+    }
+
 }

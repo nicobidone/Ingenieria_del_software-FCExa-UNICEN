@@ -5,13 +5,16 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class RegionsWebAppInterface implements Serializable {
     Context mContext;
+    private HashMap<String, Integer> result;
 
     /** Instantiate the interface and set the context */
-    public RegionsWebAppInterface(Context c) {
+    public RegionsWebAppInterface(Context c, HashMap<String, Integer> result) {
         mContext = c;
+        this.result = result;
     }
 
     /** Show a toast from the web page */
@@ -22,19 +25,23 @@ public class RegionsWebAppInterface implements Serializable {
 
     @JavascriptInterface
     public String getInts(){
-        Integer[] aux = new Integer[3];
-        aux[0] = 100;
-        aux[1] = 200;
-        aux[2] = 300;
+        Integer[] aux = new Integer[result.keySet().size()];
+        int i =0;
+        for(String key: result.keySet()) {
+            aux[i] = result.get(key);
+            i++;
+        }
         return a1dToJson(aux).toString();
     }
 
     @JavascriptInterface
     public String getStrings(){
-        String[] aux = new String[3];
-        aux[0] = "Germany";
-        aux[1] = "United States";
-        aux[2] = "Brazil";
+        String[] aux = new String[result.keySet().size()];
+        int i =0;
+        for(String key: result.keySet()) {
+            aux[i] = key;
+            i++;
+        }
         return aStToJson(aux).toString();
     }
 

@@ -94,7 +94,9 @@ public class MainActivity extends FragmentActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_region_geo_charts) {
-            startActivity(new Intent(this, RegionsActivity.class));
+            Intent i = new Intent(MainActivity.this, RegionsActivity.class);
+            i.putExtra("result", result);
+            startActivity(i);
         } else if (id == R.id.nav_histogram) {
             Intent i = new Intent(MainActivity.this, HistogramActivity.class);
             i.putExtra("result", result);

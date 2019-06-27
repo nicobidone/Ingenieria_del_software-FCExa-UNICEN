@@ -17,14 +17,16 @@ import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsFragment;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsSettingsFragment;
 
+import java.util.HashMap;
+
 public class RegionsView {
 
 
     private ViewPager mPager;
     private SlidePagerAdapter mPagerAdapter;
 
-    public RegionsView(Activity activity, FragmentManager supportFragmentManager){
-        Fragment regionsFragment = RegionsFragment.newInstance(new RegionsWebAppInterface(activity));
+    public RegionsView(Activity activity, FragmentManager supportFragmentManager, HashMap<String, Integer> result){
+        Fragment regionsFragment = RegionsFragment.newInstance(new RegionsWebAppInterface(activity, result));
         Fragment regionsSettingsFragment = new RegionsSettingsFragment();
 
         mPager = activity.findViewById(R.id.pager);

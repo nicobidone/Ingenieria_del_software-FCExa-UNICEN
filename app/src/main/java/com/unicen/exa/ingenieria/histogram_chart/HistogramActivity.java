@@ -1,7 +1,9 @@
 package com.unicen.exa.ingenieria.histogram_chart;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;

@@ -31,6 +31,12 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
         </intent-filter>
+    </activity>
+
+        <activity android:name=".heatmap_chart.HeatmapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
     </application>
 

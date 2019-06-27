@@ -2,19 +2,20 @@ package com.unicen.exa.ingenieria;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.view.GravityCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.unicen.exa.ingenieria.geo_charts.RegionsActivity;
+import com.unicen.exa.ingenieria.heatmap_chart.HeatmapActivity;
 import com.unicen.exa.ingenieria.histogram_chart.HistogramActivity;
 
 import java.io.BufferedReader;
@@ -102,6 +103,8 @@ implements NavigationView.OnNavigationItemSelectedListener {
             Intent i = new Intent(MainActivity.this, HistogramActivity.class);
             i.putExtra("result", result);
             startActivity(i);
+        } else if(id == R.id.nav_region_heatmap){
+            startActivity(new Intent(this, HeatmapActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -10,11 +10,14 @@
 
     <string name="menu_mpandroid_charts">MPAndroid Charts</string>
     <string name="menu_geo_charts">GeoCharts</string>
+    <string name="menu_heatmap">Heatmap</string>
     <string name="menu_region_geo_charts">Region GeoCharts</string>
+    <string name="menu_region_heatmap">HeatMap</string>
     <string name="menu_any_charts">AnyCharts</string>
     <string name="title_geo_charts">Geo Charts</string>
     <string name="title_any_charts">Any Charts</string>
     <string name="title_mpandroid_charts">MPAndroid Charts</string>
+    <string name="title_heatmap">HeatMap</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -44,5 +47,8 @@
         <item>018 - Southern Africa</item>
     </string-array>
 
+    <string name="button_radius">Radius</string>
+    <string name="button_gradient">Gradient</string>
+    <string name="button_opacity">Opacity</string>
 
 </resources>

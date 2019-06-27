@@ -6,6 +6,7 @@ import com.unicen.exa.ingenieria.geo_charts.view.RegionsView;
 public class RegionsPresenter{
 
     private RegionsView view;
+
     private RegionsModel model;
 
     public RegionsPresenter(RegionsView view, RegionsModel model){

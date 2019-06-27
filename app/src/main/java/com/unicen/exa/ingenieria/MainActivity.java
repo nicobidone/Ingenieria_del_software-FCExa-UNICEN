@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.unicen.exa.ingenieria.geo_charts.RegionsActivity;
 import com.unicen.exa.ingenieria.histogram_chart.HistogramActivity;
+import com.unicen.exa.ingenieria.piechart.PieChartActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -93,10 +94,13 @@ implements NavigationView.OnNavigationItemSelectedListener {
 
         if (id == R.id.nav_region_geo_charts) {
             startActivity(new Intent(this, RegionsActivity.class));
-        } else if (id == R.id.nav_any_charts) {
-
-        } else if (id == R.id.nav_mpandroid_charts) {
+        } else if (id == R.id.nav_histogram) {
             Intent i = new Intent(MainActivity.this, HistogramActivity.class);
+            i.putExtra("result", result);
+            startActivity(i);
+
+        } else if (id == R.id.nav_pie_chart) {
+            Intent i = new Intent(MainActivity.this, PieChartActivity.class);
             i.putExtra("result", result);
             startActivity(i);
         }

@@ -3,20 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <item android:title="@string/title_pie_chart">
+        <menu>
+            <item
+                android:id="@+id/nav_pie_chart"
+                android:icon="@drawable/ic_pie_chart"
+                android:title="@string/menu_pie_chart" />
+        </menu>
+    </item>
+
+    <item android:title="@string/title_histogram">
+        <menu>
+            <item
+                android:id="@+id/nav_histogram"
+                android:icon="@drawable/ic_bar_chart"
+                android:title="@string/menu_histogram" />
+        </menu>
+    </item>
+
     <item android:title="@string/title_any_charts">
         <menu>
             <item
                 android:id="@+id/nav_any_charts"
-                android:icon="@drawable/ic_pie_chart"
-                android:title="@string/menu_any_charts" />
-        </menu>
-    </item>
-    <item android:title="@string/title_mpandroid_charts">
-        <menu>
-            <item
-                android:id="@+id/nav_mpandroid_charts"
                 android:icon="@drawable/ic_analytics"
-                android:title="@string/menu_mpandroid_charts" />
+                android:title="@string/menu_any_charts" />
         </menu>
     </item>
     <item android:title="@string/title_geo_charts">

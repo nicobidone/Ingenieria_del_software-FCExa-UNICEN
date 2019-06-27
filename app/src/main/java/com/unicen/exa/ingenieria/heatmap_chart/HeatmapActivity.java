@@ -3,6 +3,7 @@ package com.unicen.exa.ingenieria.heatmap_chart;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -16,6 +17,7 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class HeatmapActivity extends BaseActivity{
 
     @Override
     protected void start() {
+        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-25, 143), 4));
         List<LatLng> list = null;
 
         // Get the data: latitude/longitude positions of police stations.
@@ -43,7 +46,6 @@ public class HeatmapActivity extends BaseActivity{
         } catch (JSONException e) {
             Toast.makeText(this, "Problem reading list of locations.", Toast.LENGTH_LONG).show();
         }
-
         // Create a heat map tile provider, passing it the latlngs of the police stations.
         mProvider = new HeatmapTileProvider.Builder()
                 .data(list)
@@ -57,10 +59,13 @@ public class HeatmapActivity extends BaseActivity{
         InputStream inputStream = getResources().openRawResource(resource);
         String json = new Scanner(inputStream).useDelimiter("\\A").next();
         JSONArray array = new JSONArray(json);
+        System.out.println(array);
+        System.out.println(array.getJSONArray(0).getDouble(3));
+        System.out.println(array.getJSONArray(0).getDouble(4));
         for (int i = 0; i < array.length(); i++) {
-            JSONArray object = array.getJSONArray(i);
+            JSONArray  object = array.getJSONArray(i);
             double lat = object.getDouble(3);
-            double lng = object.getDouble(4);
+            double lng =  object.getDouble(4);
             System.out.println("lat: "+lat+"Log: "+lng);
             list.add(new LatLng(lat, lng));
         }

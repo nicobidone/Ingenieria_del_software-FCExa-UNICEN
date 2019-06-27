@@ -14,7 +14,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     private GoogleMap mMap;
 
     protected int getLayoutId() {
-        return R.layout.map;
+        return R.layout.activity_heatmap;
     }
 
     @Override
@@ -40,9 +40,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     }
 
     private void setUpMap() {
-        if (mMap == null) {
-            MapFragment mapFragment = (MapFragment) getFragmentManager() .findFragmentById(R.id.map); mapFragment.getMapAsync(this);
-        }
+        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
     }
 
     /**

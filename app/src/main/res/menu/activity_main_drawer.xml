@@ -37,5 +37,13 @@
                 android:title="@string/menu_region_geo_charts" />
         </menu>
     </item>
+    <item android:title="Heatmap">
+        <menu>
+            <item
+                android:id="@+id/nav_region_heatmap"
+                android:icon="@drawable/ic_world_map"
+                android:title="@string/menu_region_heatmap" />
+        </menu>
+    </item>
 
 </menu>

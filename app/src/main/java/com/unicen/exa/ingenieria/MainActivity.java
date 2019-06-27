@@ -104,6 +104,8 @@ public class MainActivity extends FragmentActivity
             Intent i = new Intent(MainActivity.this, PieChartActivity.class);
             i.putExtra("result", result);
             startActivity(i);
+        }else if(id == R.id.nav_region_heatmap){
+            startActivity(new Intent(this, HeatmapActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

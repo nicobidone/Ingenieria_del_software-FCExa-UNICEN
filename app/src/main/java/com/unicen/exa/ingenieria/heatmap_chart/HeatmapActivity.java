@@ -51,7 +51,7 @@ public class HeatmapActivity extends BaseActivity{
                 .data(list)
                 .build();
         // Add a tile overlay to the map, using the heat map tile provider.
-        mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+        mOverlay = getMap().addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
     }
 
     private ArrayList<LatLng> readItems(int resource) throws JSONException {

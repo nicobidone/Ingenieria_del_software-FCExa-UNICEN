@@ -18,6 +18,7 @@ import java.util.HashMap;
 public class PieChartActivity extends AppCompatActivity {
     private HashMap<String, Integer> result;
     private PieChart piechart;
+    private static final int MINIMO = 160;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +28,24 @@ public class PieChartActivity extends AppCompatActivity {
         result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
         piechart = findViewById(R.id.piechart);
 
-        piechart.setUsePercentValues(true);
+        piechart.setUsePercentValues(false);
         piechart.setDrawHoleEnabled(true);
         piechart.setHoleColor(Color.WHITE);
         piechart.setTransparentCircleRadius(61f);
 
         ArrayList<PieEntry> entry = new ArrayList<PieEntry>();
+        int count = 0;
 
         for( String key: result.keySet()){
-            entry.add(new PieEntry(result.get(key), key));
-
+            if(result.get(key) > MINIMO)
+                entry.add(new PieEntry(result.get(key), key));
+            else
+                count+=result.get(key);
+                //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
         }
-
+        entry.add(new PieEntry(count, "Otros"));
         PieDataSet dataset = new PieDataSet(entry, "countries");
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataset.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData data = new PieData(dataset);
 

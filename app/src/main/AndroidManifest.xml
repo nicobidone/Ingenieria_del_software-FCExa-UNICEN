@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".histogram_chart.HistogramActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -25,12 +26,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".histogram_chart.HistogramActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
         </activity>
     </application>
 

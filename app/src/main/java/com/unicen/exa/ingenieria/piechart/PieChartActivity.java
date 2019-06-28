@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class PieChartActivity extends AppCompatActivity {
     private HashMap<String, Integer> result;
     private PieChart piechart;
-    private static final int MINIMO = 160;
+    private static final int MINIMO = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

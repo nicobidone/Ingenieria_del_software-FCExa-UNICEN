@@ -60,12 +60,12 @@ public class HeatmapActivity extends BaseActivity{
         String json = new Scanner(inputStream).useDelimiter("\\A").next();
         JSONArray array = new JSONArray(json);
         System.out.println(array);
-        System.out.println(array.getJSONArray(0).getDouble(3));
-        System.out.println(array.getJSONArray(0).getDouble(4));
+        System.out.println(array.getJSONArray(0).getDouble(0));
+        System.out.println(array.getJSONArray(0).getDouble(1));
         for (int i = 0; i < array.length(); i++) {
             JSONArray  object = array.getJSONArray(i);
-            double lat = object.getDouble(3);
-            double lng =  object.getDouble(4);
+            double lat = object.getDouble(0);
+            double lng =  object.getDouble(1);
             System.out.println("lat: "+lat+"Log: "+lng);
             list.add(new LatLng(lat, lng));
         }

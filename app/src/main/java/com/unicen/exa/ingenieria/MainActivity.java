@@ -67,7 +67,10 @@ public class MainActivity extends FragmentActivity
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
                 String[] row = csvLine.split(",");
-                result.put(row[1], Integer.valueOf(row[2]));
+                if(result.containsKey(row[3]))
+                    result.put(row[3], result.get(row[3])+1);
+                else
+                    result.put(row[3], 1);
             }
         }
         catch (IOException ex) {

@@ -4,12 +4,11 @@ import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class RegionsWebAppInterface implements Serializable {
+public class RegionsWebAppInterface {
     Context mContext;
     private HashMap<String, Integer> result;
 

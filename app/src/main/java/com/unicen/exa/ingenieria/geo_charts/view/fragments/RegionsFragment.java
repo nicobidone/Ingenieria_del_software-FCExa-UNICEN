@@ -1,11 +1,6 @@
 package com.unicen.exa.ingenieria.geo_charts.view.fragments;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +8,12 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.unicen.exa.ingenieria.R;
 import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
@@ -25,7 +26,7 @@ public class RegionsFragment extends Fragment implements Serializable {
     private static final String id_app = "Android";
     private String addr = "file:///android_asset/geocharts_region.html";
 
-    private Serializable wai;
+    private RegionsWebAppInterface wai;
     public static RegionsFragment newInstance(RegionsWebAppInterface wai) {
 
         Bundle args = new Bundle();
@@ -40,14 +41,11 @@ public class RegionsFragment extends Fragment implements Serializable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle arguments = getArguments();
-        if (arguments != null){
-            wai = arguments.getSerializable("wai");
-        }
-
         View view = inflater.inflate(R.layout.fragment_regions, container, false);
         WebView myWebView = view.findViewById(R.id.webview_geochart);
         Button button = view.findViewById(R.id.button);
+        RegionsViewModel model = ViewModelProviders.of(getActivity()).get(RegionsViewModel.class);
+
         button.setOnClickListener(v -> replaceFragment(new RegionsFragment()));
 
         myWebView.getSettings().setJavaScriptEnabled(true);
@@ -56,7 +54,7 @@ public class RegionsFragment extends Fragment implements Serializable {
         myWebView.getSettings().setBuiltInZoomControls(true);
         myWebView.getSettings().setDisplayZoomControls(false);
         myWebView.getSettings().setUseWideViewPort(true);
-        myWebView.addJavascriptInterface((RegionsWebAppInterface) wai, id_app);
+        myWebView.addJavascriptInterface(model.getWAI(), id_app);
         myWebView.loadUrl(addr);
         return view;
     }

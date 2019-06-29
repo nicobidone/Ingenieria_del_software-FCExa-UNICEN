@@ -20,7 +20,6 @@ public class RegionsActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
-//        super.setToolbar();
 
         presenter = new RegionsPresenter(new RegionsView(this,getSupportFragmentManager(), result), new RegionsModel());
     }

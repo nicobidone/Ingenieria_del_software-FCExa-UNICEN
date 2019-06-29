@@ -1,32 +1,40 @@
 package com.unicen.exa.ingenieria.geo_charts.view;
 
 import android.app.Activity;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.unicen.exa.ingenieria.R;
 import com.unicen.exa.ingenieria.RootFragment;
 import com.unicen.exa.ingenieria.SlidePagerAdapter;
 import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsFragment;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsSettingsFragment;
+import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsViewModel;
 
 import java.util.HashMap;
 
 public class RegionsView {
 
-
+    private RegionsViewModel model;
     private ViewPager mPager;
     private SlidePagerAdapter mPagerAdapter;
 
     public RegionsView(Activity activity, FragmentManager supportFragmentManager, HashMap<String, Integer> result){
-        Fragment regionsFragment = RegionsFragment.newInstance(new RegionsWebAppInterface(activity, result));
+
+        model = ViewModelProviders.of((FragmentActivity) activity).get(RegionsViewModel.class);
+        model.setWAI(new RegionsWebAppInterface(activity,result));
+
+        Fragment regionsFragment = new RegionsFragment();
         Fragment regionsSettingsFragment = new RegionsSettingsFragment();
 
         mPager = activity.findViewById(R.id.pager);
@@ -60,12 +68,4 @@ public class RegionsView {
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
-
-//    public void set_gc_region(String gc_region) {
-//        gc_region = gc_region;
-//    }
-//
-//    public String get_gc_region(){
-//        return gc_region;
-//    }
 }

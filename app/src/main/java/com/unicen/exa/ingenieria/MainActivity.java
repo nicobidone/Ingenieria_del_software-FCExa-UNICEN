@@ -18,6 +18,7 @@ import com.unicen.exa.ingenieria.geo_charts.RegionsActivity;
 import com.unicen.exa.ingenieria.heatmap_chart.HeatmapActivity;
 import com.unicen.exa.ingenieria.histogram_chart.HistogramActivity;
 import com.unicen.exa.ingenieria.piechart.PieChartActivity;
+import com.unicen.exa.ingenieria.timechart.TimeChartActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -111,6 +112,8 @@ public class MainActivity extends FragmentActivity
             startActivity(i);
         }else if(id == R.id.nav_region_heatmap){
             startActivity(new Intent(this, HeatmapActivity.class));
+        }else if(id == R.id.nav_timechart){
+            startActivity(new Intent(this, TimeChartActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

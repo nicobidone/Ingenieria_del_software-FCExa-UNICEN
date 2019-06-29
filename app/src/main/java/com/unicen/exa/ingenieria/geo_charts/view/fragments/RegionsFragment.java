@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.unicen.exa.ingenieria.R;
-import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
 
 import java.io.Serializable;
 
@@ -25,17 +24,6 @@ public class RegionsFragment extends Fragment implements Serializable {
     public static final String TAG = "RegionsFragment";
     private static final String id_app = "Android";
     private String addr = "file:///android_asset/geocharts_region.html";
-
-    private RegionsWebAppInterface wai;
-    public static RegionsFragment newInstance(RegionsWebAppInterface wai) {
-
-        Bundle args = new Bundle();
-        args.putSerializable("wai", wai);
-
-        RegionsFragment fragment = new RegionsFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

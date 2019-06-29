@@ -1,6 +1,8 @@
 package com.unicen.exa.ingenieria.geo_charts.model;
 
-public class RegionsModel {
+import java.io.Serializable;
+
+public class RegionsModel implements Serializable {
 
     private static final String gc_region = "file:///android_asset/geocharts_region.html";
 

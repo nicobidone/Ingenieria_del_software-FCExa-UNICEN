@@ -17,12 +17,13 @@ import com.unicen.exa.ingenieria.geo_charts.model.RegionsWebAppInterface;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsFragment;
 import com.unicen.exa.ingenieria.geo_charts.view.fragments.RegionsSettingsFragment;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class RegionsView {
+public class RegionsView implements Serializable {
 
 
-    private ViewPager mPager;
+    private transient ViewPager mPager;
     private SlidePagerAdapter mPagerAdapter;
 
     public RegionsView(Activity activity, FragmentManager supportFragmentManager, HashMap<String, Integer> result){

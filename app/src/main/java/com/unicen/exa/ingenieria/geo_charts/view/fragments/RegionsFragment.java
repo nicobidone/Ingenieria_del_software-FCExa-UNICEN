@@ -30,7 +30,7 @@ public class RegionsFragment extends Fragment implements Serializable {
     public static RegionsFragment newInstance(RegionsWebAppInterface wai) {
 
         Bundle args = new Bundle();
-        args.putSerializable("wai", (Serializable) wai);
+        args.putSerializable("wai", wai);
 
         RegionsFragment fragment = new RegionsFragment();
         fragment.setArguments(args);
@@ -38,7 +38,7 @@ public class RegionsFragment extends Fragment implements Serializable {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_regions, container, false);

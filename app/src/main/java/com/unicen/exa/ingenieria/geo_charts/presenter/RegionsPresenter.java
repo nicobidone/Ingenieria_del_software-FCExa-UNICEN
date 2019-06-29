@@ -3,7 +3,9 @@ package com.unicen.exa.ingenieria.geo_charts.presenter;
 import com.unicen.exa.ingenieria.geo_charts.model.RegionsModel;
 import com.unicen.exa.ingenieria.geo_charts.view.RegionsView;
 
-public class RegionsPresenter{
+import java.io.Serializable;
+
+public class RegionsPresenter implements Serializable {
 
     private RegionsView view;
 

@@ -7,16 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.unicen.exa.ingenieria.R;
-
 import java.io.Serializable;
 
 public class RegionsFragment extends Fragment implements Serializable {
@@ -31,10 +27,7 @@ public class RegionsFragment extends Fragment implements Serializable {
 
         View view = inflater.inflate(R.layout.fragment_regions, container, false);
         WebView myWebView = view.findViewById(R.id.webview_geochart);
-        Button button = view.findViewById(R.id.button);
         RegionsViewModel model = ViewModelProviders.of(getActivity()).get(RegionsViewModel.class);
-
-        button.setOnClickListener(v -> replaceFragment(new RegionsFragment()));
 
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());

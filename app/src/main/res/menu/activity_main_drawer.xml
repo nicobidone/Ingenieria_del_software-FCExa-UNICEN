@@ -3,56 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/title_pie_chart">
-        <menu>
-            <item
-                android:id="@+id/nav_pie_chart"
-                android:icon="@drawable/ic_pie_chart"
-                android:title="@string/menu_pie_chart" />
-        </menu>
-    </item>
-
-    <item android:title="@string/title_histogram">
-        <menu>
-            <item
-                android:id="@+id/nav_histogram"
-                android:icon="@drawable/ic_bar_chart"
-                android:title="@string/menu_histogram" />
-        </menu>
-    </item>
-
-    <item android:title="@string/title_height_map">
-        <menu>
-            <item
-                android:id="@+id/nav_any_charts"
-                android:icon="@drawable/ic_analytics"
-                android:title="@string/menu_height_map" />
-        </menu>
-    </item>
-    <item android:title="@string/title_geo_charts">
-        <menu>
-            <item
-                android:id="@+id/nav_region_geo_charts"
-                android:icon="@drawable/ic_world_map"
-                android:title="@string/menu_region_geo_charts" />
-        </menu>
-    </item>
-    <item android:title="Heatmap">
-        <menu>
-            <item
-                android:id="@+id/nav_region_heatmap"
-                android:icon="@drawable/ic_world_map"
-                android:title="@string/menu_region_heatmap" />
-        </menu>
-    </item>
-
-    <item android:title="@string/title_timechart">
-        <menu>
-            <item
-                android:id="@+id/nav_timechart"
-                android:icon="@drawable/ic_bar_chart"
-                android:title="@string/menu_timechart" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_pie_chart"
+        android:icon="@drawable/ic_pie_chart"
+        android:title="@string/menu_pie_chart" />
+    <item
+        android:id="@+id/nav_histogram"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="@string/menu_histogram" />
+    <item
+        android:id="@+id/nav_region_geo_charts"
+        android:icon="@drawable/ic_world_map"
+        android:title="@string/menu_region_geo_charts" />
+    <item
+        android:id="@+id/nav_region_heatmap"
+        android:icon="@drawable/ic_firefighter"
+        android:title="@string/menu_region_heatmap" />
+    <item
+        android:id="@+id/nav_timechart"
+        android:icon="@drawable/ic_time_analytics"
+        android:title="@string/menu_timechart" />
 
 </menu>

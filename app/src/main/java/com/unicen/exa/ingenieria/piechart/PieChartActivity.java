@@ -43,15 +43,149 @@ public class PieChartActivity extends AppCompatActivity {
                 entry.add(new PieEntry(result.get(key), key));
             else
                 count+=result.get(key);
-                //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
+            //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
         }
         entry.add(new PieEntry(count, "Otros"));
         PieDataSet dataset = new PieDataSet(entry, "countries");
-        dataset.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        dataset.setColors(getColorArray());
 
         PieData data = new PieData(dataset);
 
         piechart.setData(data);
 
+    }
+
+    ArrayList<Integer> getColorArray(){
+        ArrayList<Integer> out =new ArrayList<>();
+
+        Integer color;
+        color = getResources().getColor(R.color.md_red_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_red_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_red_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_200);
+        out.add(color);
+
+
+        return out;
     }
 }

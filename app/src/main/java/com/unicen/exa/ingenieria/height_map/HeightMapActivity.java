@@ -1,11 +1,16 @@
 package com.unicen.exa.ingenieria.height_map;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
-import android.os.Bundle;
-
+import com.cocoahero.android.geojson.Feature;
+import com.cocoahero.android.geojson.FeatureCollection;
+import com.cocoahero.android.geojson.GeoJSON;
+import com.cocoahero.android.geojson.GeoJSONObject;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -15,14 +20,13 @@ import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.unicen.exa.ingenieria.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.List;
 
 import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionColor;
@@ -34,9 +38,10 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionOpa
  */
 public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "HeightMapActivity";
     private MapView mapView;
     private HashMap<String, Integer> result;
-    private JSONArray array;
+    private JSONObject geojson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,29 +50,41 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
         // Mapbox access token is configured here. This needs to be called either in your application
         // object or in the same activity which contains the mapview.
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
-
+//        loadJson(R.raw.south_america);
+        Log.d(TAG, "onCreate: AFTER LOAD");
         // This contains the MapView in XML and needs to be called after the access token is configured.
         setContentView(R.layout.activity_height_map);
-
-        InputStream inputStream = getResources().openRawResource(R.raw.countries);
-        String json = new Scanner(inputStream).useDelimiter("\\A").next();
-        try {
-            this.array = new JSONArray(json);
-            int a = 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        /*for(int i = 0; i < array.length(); i++){
-            JSONObject jsonObj = (JSONObject)array.get(i); // get the josn object
-            if(jsonObj.getString("name").equals("Rose")){ // compare for the key-value
-                ((JSONObject)arr.get(i)).put("id", 22); // put the new value for the key
-            }
-            textview.setText(arr.toString());// display and verify your Json with updated value
-        }*/
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+    }
+
+    private void loadJson(int resource) {
+        InputStream inputStream = getResources().openRawResource(resource);
+        try {
+            GeoJSONObject geoJSON = GeoJSON.parse(inputStream);
+            FeatureCollection featureCollection = (FeatureCollection) geoJSON;
+            List<Feature> features = featureCollection.getFeatures();
+
+            for (Feature feature : features) {
+                String country = feature.getProperties().getString("name");
+                if (result.containsKey(country))
+                    feature.getProperties().put("e", result.get(country));
+                else
+                    feature.getProperties().put("e", 0);
+            }
+
+
+            Log.d(TAG, "loadJson: featureCollection: " + featureCollection.toJSON());
+
+            geojson = featureCollection.toJSON();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -79,11 +96,15 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
                 // Add the marathon route source to the map
                 // Create a GeoJsonSource and use the Mapbox Datasets API to retrieve the GeoJSON data
                 // More info about the Datasets API at https://www.mapbox.com/api-documentation/#retrieve-a-dataset
-                GeoJsonSource courseRouteGeoJson = new GeoJsonSource(
-                        "coursedata", loadJsonFromAsset("countries.geojson"));
+//                GeoJsonSource courseRouteGeoJson = new GeoJsonSource("coursedata", HeightMapActivity.this.geojson.toString());
+                Log.d(TAG, "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                GeoJsonSource courseRouteGeoJson =
+                        new GeoJsonSource("coursedata",
+                                loadJsonFromAsset("marathon_route.geojson"));
 
                 style.addSource(courseRouteGeoJson);
                 addExtrusionsLayerToMap(style);
+
             }
         });
     }
@@ -137,6 +158,8 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
+
+
 
     private String loadJsonFromAsset(String filename) {
         // Using this method to load in GeoJSON files from the assets folder.

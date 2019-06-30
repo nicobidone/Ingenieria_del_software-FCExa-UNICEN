@@ -21,14 +21,6 @@
         </menu>
     </item>
 
-    <item android:title="@string/title_height_map">
-        <menu>
-            <item
-                android:id="@+id/nav_height_map"
-                android:icon="@drawable/ic_analytics"
-                android:title="@string/menu_height_map" />
-        </menu>
-    </item>
     <item android:title="@string/title_geo_charts">
         <menu>
             <item
@@ -52,6 +44,15 @@
                 android:id="@+id/nav_timechart"
                 android:icon="@drawable/ic_bar_chart"
                 android:title="@string/menu_timechart" />
+        </menu>
+    </item>
+
+    <item android:title="@string/title_height_map">
+        <menu>
+            <item
+                android:id="@+id/nav_height_map"
+                android:icon="@drawable/ic_analytics"
+                android:title="@string/menu_height_map" />
         </menu>
     </item>
 

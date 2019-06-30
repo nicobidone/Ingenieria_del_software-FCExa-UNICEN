@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.unicen.exa.ingenieria.geo_charts.RegionsActivity;
 import com.unicen.exa.ingenieria.heatmap_chart.HeatmapActivity;
+import com.unicen.exa.ingenieria.height_map.HeightMapActivity;
 import com.unicen.exa.ingenieria.histogram_chart.HistogramActivity;
 import com.unicen.exa.ingenieria.piechart.PieChartActivity;
 import com.unicen.exa.ingenieria.timechart.TimeChartActivity;
@@ -114,7 +115,12 @@ public class MainActivity extends FragmentActivity
             startActivity(new Intent(this, HeatmapActivity.class));
         }else if(id == R.id.nav_timechart){
             startActivity(new Intent(this, TimeChartActivity.class));
+        }else if(id == R.id.nav_height_map){
+            Intent i = new Intent(MainActivity.this, HeightMapActivity.class);
+            i.putExtra("result", result);
+            startActivity(i);
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

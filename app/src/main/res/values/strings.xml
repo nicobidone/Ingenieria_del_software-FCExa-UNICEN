@@ -56,5 +56,18 @@
     <string name="button_opacity">Opacity</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD4kyr1zB6g2bqB_N99QpofixA4xPovy7U</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaWFyYWFsZmFyb2x1dHoiLCJhIjoiY2p4Z29pcXkzMDJtNjNvcnhkeGVjNTNseSJ9.jSgYo-ffMz7mrZbocrnQhg</string>
+    <string name="san_francisco">San Francisco</string>
+    <string name="los_angeles">Los Angeles</string>
+    <string name="seattle">Seattle</string>
+    <string name="new_orleans">Nova Orleans</string>
+    <string name="chicago">Xicago</string>
+    <string name="philadelphia">Filadèlfia</string>
+    <string name="new_york">Nova York</string>
+    <string name="atlanta">Atlanta</string>
+    <string name="portland">Portland</string>
+    <string name="denver">Denver</string>
+    <string name="minneapolis">Minneapolis</string>
+    <string name="miami">Miami</string>
 
 </resources>

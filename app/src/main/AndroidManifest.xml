@@ -34,36 +34,15 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".geo_charts.RegionsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".histogram_chart.HistogramActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".piechart.PieChartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".heatmap_chart.HeatmapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
 
-        <activity android:name=".timechart.TimeChartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".geo_charts.RegionsActivity"/>
+        <activity android:name=".histogram_chart.HistogramActivity"/>
+        <activity android:name=".piechart.PieChartActivity"/>
+        <activity android:name=".heatmap_chart.HeatmapActivity"/>
+        <activity android:name=".timechart.TimeChartActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

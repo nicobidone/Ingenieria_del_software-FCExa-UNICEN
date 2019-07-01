@@ -37,7 +37,7 @@ public class HeatmapActivity extends BaseActivity{
 
     @Override
     protected void start() {
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-25, 143), 4));
+        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-0, 113), 2));
         List<LatLng> list = null;
 
         // Get the data: latitude/longitude positions of police stations.

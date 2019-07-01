@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,11 +15,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.unicen.exa.ingenieria.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 public class RegionsSettingsFragment extends Fragment {
 
     private RegionsViewModel model;
 
-    private String countries[] = {"Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
+    private String[] countries = {"Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
             "Antarctica",
             "Antiguand Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh",
             "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia (Plurinational State of)",
@@ -50,58 +58,88 @@ public class RegionsSettingsFragment extends Fragment {
             "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela (Bolivarian Republic of)", "Viet Nam", "Virgin Islands (British)",
             "Virgin Islands (U.S.)", "Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"};
 
-    private String continents[] = {"Africa", "Europe", "Americas", "Asia", "Oceania"};
-    private String continents_id[] = {"002", "150", "019", "142", "009"};
-    private String subcontinents[] = {
-            "Northern Africa", "Western Africa","Middle Africa", "Eastern Africa", "Southern Africa",
+    private String[] continents = {"Africa", "Europe", "Americas", "Asia", "Oceania"};
+    private String[] continents_id = {"002", "150", "019", "142", "009"};
+    private String[] subcontinents = {
+            "Northern Africa", "Western Africa", "Middle Africa", "Eastern Africa", "Southern Africa",
             "Northern Europe", "Western Europe", "Eastern Europe", "Southern Europe",
             "Northern America", "Caribbean", "Central America", "South America",
             "Central Asia", "Eastern Asia", "Southern Asia", "Eastern Asia", "Western Asia",
             "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
-    private String subcontinents_id[] = {
+    private String[] subcontinents_id = {
             "015", "011", "017", "014", "018",
             "154", "155", "151", "039",
             "021", "029", "013", "005",
             "143", "030", "034", "035", "145",
             "053", "054", "057", "061"};
-    private String conutries[] = {
-            "DZ", "EG", "EH", "LY", "MA", "SD", "SS", "TN",
-            "BF", "BJ", "CI", "CV", "GH", "GM", "GN", "GW", "LR", "ML", "MR", "NE", "NG", "SH", "SL", "SN", "TG",
-            "AO", "CD", "ZR", "CF", "CG", "CM", "GA", "GQ", "ST", "TD",
-            "BI", "DJ", "ER", "ET", "KE", "KM", "MG", "MU", "MW", "MZ", "RE", "RW", "SC", "SO", "TZ", "UG", "YT", "ZM", "ZW",
-            "BW", "LS", "NA", "SZ", "ZA",
-            "GG", "JE", "AX", "DK", "EE", "FI", "FO", "GB", "IE", "IM", "IS", "LT", "LV", "NO", "SE", "SJ",
-            "AT", "BE", "CH", "DE", "DD", "FR", "FX", "LI", "LU", "MC", "NL",
-            "BG", "BY", "CZ", "HU", "MD", "PL", "RO", "RU", "SU", "SK", "UA",
-            "AD", "AL", "BA", "ES", "GI", "GR", "HR", "IT", "ME", "MK", "MT", "CS", "RS", "PT", "SI", "SM", "VA", "YU",
-            "BM", "CA", "GL", "PM", "US",
-            "AG", "AI", "AN", "AW", "BB", "BL", "BS", "CU", "DM", "DO", "GD", "GP", "HT", "JM", "KN", "KY", "LC", "MF", "MQ", "MS", "PR",
-            "TC", "TT", "VC", "VG", "VI",
-            "BZ", "CR", "GT", "HN", "MX", "NI", "PA", "SV",
-            "AR", "BO", "BR", "CL", "CO", "EC", "FK", "GF", "GY", "PE", "PY", "SR", "UY", "VE",
-            "TM", "TJ", "KG", "KZ", "UZ",
-            "CN", "HK", "JP", "KP", "KR", "MN", "MO", "TW",
-            "AF", "BD", "BT", "IN", "IR", "LK", "MV", "NP", "PK",
-            "BN", "ID", "KH", "LA", "MM", "BU", "MY", "PH", "SG", "TH", "TL", "TP", "VN",
-            "AE", "AM", "AZ", "BH", "CY", "GE", "IL", "IQ", "JO", "KW", "LB", "OM", "PS", "QA", "SA", "NT", "SY", "TR", "YE", "YD",
-            "AU", "NF", "NZ",
-            "FJ", "NC", "PG", "SB", "VU",
-            "FM", "GU", "KI", "MH", "MP", "NR", "PW",
-            "AS", "CK", "NU", "PF", "PN", "TK", "TO", "TV", "WF", "WS"};
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_regions_settings, container, false);
-        Button button = view.findViewById(R.id.button2);
+        Button button = view.findViewById(R.id.button);
+
+        Spinner spinner = view.findViewById(R.id.spinner);
+        setSpinner(spinner, continents);
+        Spinner spinner2 = view.findViewById(R.id.spinner2);
+        setSpinner(spinner2, subcontinents);
+        Spinner spinner3 = view.findViewById(R.id.spinner3);
+        setSpinner(spinner3, countries);
+
+        RadioButton[] radios = {
+                view.findViewById(R.id.radioButton),
+                view.findViewById(R.id.radioButton2),
+                view.findViewById(R.id.radioButton3)};
+        for (RadioButton rad : radios) {
+            rad.setOnClickListener(v -> setChecked(radios, rad));
+        }
 
         if (getActivity() != null) {
             model = ViewModelProviders.of(getActivity()).get(RegionsViewModel.class);
-            button.setOnClickListener(v -> model.select(true));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    model.select(true);
+                }
+            });
         }
 
         return view;
+    }
+
+    private void setChecked(RadioButton[] radios, RadioButton chk) {
+        for (RadioButton r : radios) {
+            if (r != chk)
+                r.setChecked(false);
+        }
+    }
+
+    private void setSpinner(Spinner spinner, String[] continents) {
+
+        final List<String> list = new ArrayList<>(Arrays.asList(continents));
+
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(
+                getActivity(),
+                R.layout.spinner_item,
+                list);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    public String getCountryCode(String countryName) {
+        String[] isoCountryCodes = Locale.getISOCountries();
+        String countryCode = "";
+        for (String code : isoCountryCodes) {
+            Locale locale = new Locale("", code);
+            String name = locale.getDisplayCountry(Locale.ENGLISH);
+            if(name.equals(countryName))
+            {
+                countryCode = code;
+                break;
+            }
+        }
+        return countryCode;
     }
 
 

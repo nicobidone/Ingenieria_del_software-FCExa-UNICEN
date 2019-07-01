@@ -24,32 +24,6 @@
     <string name="title_timechart">Time Chart</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="first_fragment">Fragment 1</string>
-    <string name="second_fragment">Fragment 2</string>
-    <string name="static_fragment">Static fragment</string>
-    <string name="to_second_fragment">Change to second fragment</string>
-    <string name="to_static_fragment">Change to static fragment</string>
-
-
-    <string name="country_prompt">Choose a country</string>
-
-    <string-array name="continents_array">
-        <item>002 - Africa</item>
-        <item>150 - Europe</item>
-        <item>019 - Americas</item>
-        <item>142 - Asia</item>
-        <item>009 - Oceania</item>
-    </string-array>
-
-    <string-array name="sub_continents_array">
-        <item>015 - Northern Africa</item>
-        <item>011 - Western Africa</item>
-        <item>017 - Middle Africa</item>
-        <item>014 - Eastern Africa</item>
-        <item>018 - Southern Africa</item>
-    </string-array>
 
     <string name="button_radius">Radius</string>
     <string name="button_gradient">Gradient</string>

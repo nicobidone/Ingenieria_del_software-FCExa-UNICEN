@@ -35,8 +35,8 @@ public class HistogramActivity extends AppCompatActivity implements SeekBar.OnSe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_barchart);
         country_selected = findViewById(R.id.country_selected);
         country_downloads = findViewById(R.id.country_downloads);

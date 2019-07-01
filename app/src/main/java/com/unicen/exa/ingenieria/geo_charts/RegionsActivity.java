@@ -16,12 +16,13 @@ public class RegionsActivity extends MainActivity implements Serializable {
     private RegionsPresenter presenter;
     private HashMap<String, Integer> result;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_regions);
         this.result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
-
         presenter = new RegionsPresenter(new RegionsView(this,getSupportFragmentManager(), result), new RegionsModel());
     }
 

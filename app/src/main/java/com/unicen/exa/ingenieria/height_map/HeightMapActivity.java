@@ -64,7 +64,7 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
         setContentView(R.layout.activity_height_map);
-
+        setTitle("Height Map");
         colors = new ArrayList<>();
         colors.add(Color.BLUE);
         colors.add(Color.RED);

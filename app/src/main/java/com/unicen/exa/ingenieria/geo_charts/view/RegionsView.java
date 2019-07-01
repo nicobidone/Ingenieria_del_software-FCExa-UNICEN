@@ -60,6 +60,7 @@ public class RegionsView {
 
     private void setToolbar(Activity activity){
         Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        toolbar.setTitle("Regions GeoCharts");
         DrawerLayout drawer = activity.findViewById(R.id.drawer_layout);
         NavigationView navigationView = activity.findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

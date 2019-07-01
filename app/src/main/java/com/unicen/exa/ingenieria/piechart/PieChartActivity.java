@@ -3,6 +3,8 @@ package com.unicen.exa.ingenieria.piechart;
 import android.graphics.Color;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.unicen.exa.ingenieria.R;
 
@@ -18,6 +22,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class PieChartActivity extends AppCompatActivity {
+
+    private static final String TAG = "PieChartActivity";
+
     private HashMap<String, Integer> result;
     private PieChart piechart;
     private static final int MINIMO = 20;
@@ -34,7 +41,8 @@ public class PieChartActivity extends AppCompatActivity {
         piechart.setDrawHoleEnabled(true);
         piechart.setHoleColor(Color.WHITE);
         piechart.setTransparentCircleRadius(61f);
-
+        piechart.getDescription().setText("");
+        piechart.getLegend().setEnabled(false);
         ArrayList<PieEntry> entry = new ArrayList<PieEntry>();
         int count = 0;
 
@@ -52,6 +60,22 @@ public class PieChartActivity extends AppCompatActivity {
         PieData data = new PieData(dataset);
 
         piechart.setData(data);
+        piechart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: highlight " + h.toString());
+                int nro = (int) h.getY();
+                String txt = String.valueOf(nro);
+                Toast.makeText(PieChartActivity.this,txt,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+
 
     }
 

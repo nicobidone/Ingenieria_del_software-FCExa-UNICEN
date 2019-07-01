@@ -46,13 +46,13 @@ public class MainActivity extends FragmentActivity
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setVisibility(View.GONE);
-
         mPager = findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
     }
 
     public void setToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

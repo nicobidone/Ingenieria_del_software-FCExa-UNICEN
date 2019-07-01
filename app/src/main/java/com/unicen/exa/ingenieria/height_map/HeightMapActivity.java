@@ -8,11 +8,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cocoahero.android.geojson.Feature;
-import com.cocoahero.android.geojson.FeatureCollection;
-import com.cocoahero.android.geojson.GeoJSON;
-import com.cocoahero.android.geojson.GeoJSONObject;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 
+import com.mapbox.geojson.Geometry;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -21,8 +20,10 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.unicen.exa.ingenieria.MainActivity;
 import com.unicen.exa.ingenieria.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionColor;
@@ -46,7 +48,7 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
     private static final String TAG = "HeightMapActivity";
     private MapView mapView;
     private HashMap<String, Integer> result;
-    private JSONObject geojson;
+    private FeatureCollection geojson;
 
     private ArrayList<Integer> colors;
     private int lastColor;
@@ -71,7 +73,6 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
         colors.add(Color.CYAN);
 
 
-
         lastColor = 0;
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -80,29 +81,20 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void loadJson(int resource) {
         InputStream inputStream = getResources().openRawResource(resource);
-        try {
-            GeoJSONObject geoJSON = GeoJSON.parse(inputStream);
-            FeatureCollection featureCollection = (FeatureCollection) geoJSON;
-            List<Feature> features = featureCollection.getFeatures();
+        String json = new Scanner(inputStream).useDelimiter("\\A").next();
+            FeatureCollection featureCollection = FeatureCollection.fromJson(json);
+            List<Feature> features = featureCollection.features();
 
             for (Feature feature : features) {
-                String country = feature.getProperties().getString("name");
+                String country = feature.getStringProperty("name");
                 if (result.containsKey(country))
-                    feature.getProperties().put("e", result.get(country)*10000);
+                    feature.addNumberProperty("e", result.get(country)*10000);
                 else
-                    feature.getProperties().put("e", 0);
+                    feature.addNumberProperty("e", 0);
             }
 
+            geojson = featureCollection;
 
-            Log.d(TAG, "loadJson: featureCollection: " + featureCollection.toJSON());
-
-            geojson = featureCollection.toJSON();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -114,7 +106,8 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
                 // Add the marathon route source to the map
                 // Create a GeoJsonSource and use the Mapbox Datasets API to retrieve the GeoJSON data
                 // More info about the Datasets API at https://www.mapbox.com/api-documentation/#retrieve-a-dataset
-                GeoJsonSource courseRouteGeoJson = new GeoJsonSource("coursedata", HeightMapActivity.this.geojson.toString());
+                //StringBuffer s = new StringBuffer(HeightMapActivity.this.geojson.toString());
+                GeoJsonSource courseRouteGeoJson = new GeoJsonSource("coursedata", HeightMapActivity.this.geojson);
 
                 style.addSource(courseRouteGeoJson);
                 addExtrusionsLayerToMap(style);

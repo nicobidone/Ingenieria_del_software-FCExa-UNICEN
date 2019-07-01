@@ -73,6 +73,8 @@ public class RegionsSettingsFragment extends Fragment {
             "143", "030", "034", "035", "145",
             "053", "054", "057", "061"};
 
+
+    boolean check = false;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -87,6 +89,7 @@ public class RegionsSettingsFragment extends Fragment {
         setSpinner(spinner3, countries);
 
         RadioButton[] radios = {
+                view.findViewById(R.id.radioButton4),
                 view.findViewById(R.id.radioButton),
                 view.findViewById(R.id.radioButton2),
                 view.findViewById(R.id.radioButton3)};
@@ -99,12 +102,40 @@ public class RegionsSettingsFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (radios[1].isChecked())
+                        model.setCode(getContinentId(spinner.getSelectedItem().toString()));
+                    else if (radios[2].isChecked())
+                        model.setCode(getSubContinentId(spinner2.getSelectedItem().toString()));
+                    else if (radios[3].isChecked())
+                        model.setCode(getCountryCode(spinner3.getSelectedItem().toString()));
+                    else model.setCode("000");
+
                     model.select(true);
                 }
             });
         }
 
         return view;
+    }
+
+    private String getSubContinentId(String subcontinent) {
+        String res = "";
+        for (int i= 0; i < continents.length; i++){
+            if (subcontinents[i].equals(subcontinent)){
+                res = subcontinents_id[i];
+            }
+        }
+        return res;
+    }
+
+    private String getContinentId(String continent){
+        String res = "";
+        for (int i= 0; i < continents.length; i++){
+            if (continents[i].equals(continent)){
+                res = continents_id[i];
+            }
+        }
+        return res;
     }
 
     private void setChecked(RadioButton[] radios, RadioButton chk) {
@@ -133,8 +164,7 @@ public class RegionsSettingsFragment extends Fragment {
         for (String code : isoCountryCodes) {
             Locale locale = new Locale("", code);
             String name = locale.getDisplayCountry(Locale.ENGLISH);
-            if(name.equals(countryName))
-            {
+            if (name.equals(countryName)) {
                 countryCode = code;
                 break;
             }

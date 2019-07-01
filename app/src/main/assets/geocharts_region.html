@@ -20,6 +20,7 @@
         console.log(lista2);
         console.log(lista2[0]);
         var num = Android.getSize();
+        var code = Android.getCode();
 
         var data = new google.visualization.DataTable();
         data.addColumn('string','Country');
@@ -30,7 +31,9 @@
             i=i+1;
         }
         console.log(data);
-        var options = {};
+        if (code != '000'){
+            var options = {region: code};
+        }
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 

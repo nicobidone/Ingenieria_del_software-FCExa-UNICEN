@@ -34,8 +34,8 @@ public class RegionsView {
         model = ViewModelProviders.of((FragmentActivity) activity).get(RegionsViewModel.class);
         model.setWAI(new RegionsWebAppInterface(activity,result));
 
-        Fragment regionsFragment = new RegionsFragment();
         Fragment regionsSettingsFragment = new RegionsSettingsFragment();
+        Fragment regionsFragment = new RegionsFragment();
 
         mPager = activity.findViewById(R.id.pager);
         mPagerAdapter = new SlidePagerAdapter(supportFragmentManager, RootFragment.newInstance(regionsFragment), regionsSettingsFragment);

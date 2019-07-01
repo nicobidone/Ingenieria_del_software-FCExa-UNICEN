@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class RegionsWebAppInterface {
-    Context mContext;
+
+    private String code = "000";
+    private Context mContext;
     private HashMap<String, Integer> result;
 
     /**
@@ -18,6 +20,10 @@ public class RegionsWebAppInterface {
     public RegionsWebAppInterface(Context c, HashMap<String, Integer> result) {
         mContext = c;
         this.result = result;
+    }
+
+    public void setCode(String subContinentId) {
+        this.code = subContinentId;
     }
 
     /**
@@ -33,6 +39,11 @@ public class RegionsWebAppInterface {
         int size = result.keySet().size();
         System.out.println(size);
         return size;
+    }
+
+    @JavascriptInterface
+    public String getCode(){
+        return this.code;
     }
 
     @JavascriptInterface
@@ -546,6 +557,7 @@ public class RegionsWebAppInterface {
             "Yemen",
             "Zambia",
             "Zimbabwe"));
+
 
 }
 

@@ -2,6 +2,7 @@ package com.unicen.exa.ingenieria.height_map;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,13 @@ import com.cocoahero.android.geojson.Feature;
 import com.cocoahero.android.geojson.FeatureCollection;
 import com.cocoahero.android.geojson.GeoJSON;
 import com.cocoahero.android.geojson.GeoJSONObject;
+
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.unicen.exa.ingenieria.R;
@@ -25,8 +28,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionColor;
@@ -43,18 +48,31 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
     private HashMap<String, Integer> result;
     private JSONObject geojson;
 
+    private ArrayList<Integer> colors;
+    private int lastColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
-        // Mapbox access token is configured here. This needs to be called either in your application
-        // object or in the same activity which contains the mapview.
+
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
-//        loadJson(R.raw.south_america);
+        loadJson(R.raw.south_america);
         Log.d(TAG, "onCreate: AFTER LOAD");
-        // This contains the MapView in XML and needs to be called after the access token is configured.
+
+
         setContentView(R.layout.activity_height_map);
 
+        colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.YELLOW);
+        colors.add(Color.CYAN);
+
+
+
+        lastColor = 0;
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -70,7 +88,7 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
             for (Feature feature : features) {
                 String country = feature.getProperties().getString("name");
                 if (result.containsKey(country))
-                    feature.getProperties().put("e", result.get(country));
+                    feature.getProperties().put("e", result.get(country)*10000);
                 else
                     feature.getProperties().put("e", 0);
             }
@@ -96,11 +114,7 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
                 // Add the marathon route source to the map
                 // Create a GeoJsonSource and use the Mapbox Datasets API to retrieve the GeoJSON data
                 // More info about the Datasets API at https://www.mapbox.com/api-documentation/#retrieve-a-dataset
-//                GeoJsonSource courseRouteGeoJson = new GeoJsonSource("coursedata", HeightMapActivity.this.geojson.toString());
-                Log.d(TAG, "ENTROOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                GeoJsonSource courseRouteGeoJson =
-                        new GeoJsonSource("coursedata",
-                                loadJsonFromAsset("marathon_route.geojson"));
+                GeoJsonSource courseRouteGeoJson = new GeoJsonSource("coursedata", HeightMapActivity.this.geojson.toString());
 
                 style.addSource(courseRouteGeoJson);
                 addExtrusionsLayerToMap(style);
@@ -110,10 +124,14 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void addExtrusionsLayerToMap(@NonNull Style loadedMapStyle) {
+
+
+
         // Add FillExtrusion layer to map using GeoJSON data
         loadedMapStyle.addLayer(new FillExtrusionLayer("course", "coursedata").withProperties(
-                fillExtrusionColor(Color.YELLOW),
-                fillExtrusionOpacity(0.7f),
+                //fillExtrusionColor(colors.get(Integer.valueOf(get("e").toString())%colors.size())),
+                fillExtrusionColor(Color.CYAN),
+                fillExtrusionOpacity(0.6f),
                 fillExtrusionHeight(get("e"))));
     }
 
@@ -174,5 +192,139 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
             ex.printStackTrace();
             return null;
         }
+    }
+
+    ArrayList<Integer> getColorArray(){
+        ArrayList<Integer> out =new ArrayList<>();
+
+        Integer color;
+        color = getResources().getColor(R.color.md_red_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_500);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_red_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_700);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_red_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_pink_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_purple_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_indigo_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_blue_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_cyan_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_teal_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_green_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_light_green_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_lime_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_yellow_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_orange_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_deep_orange_200);
+        out.add(color);
+
+        color = getResources().getColor(R.color.md_brown_200);
+        out.add(color);
+
+
+        return out;
     }
 }

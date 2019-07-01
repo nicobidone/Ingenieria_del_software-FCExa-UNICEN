@@ -31,10 +31,10 @@ public class RegionsFragment extends Fragment implements Serializable {
 
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebViewClient(new WebViewClient());
-//        myWebView.getSettings().setSupportZoom(true);
-//        myWebView.getSettings().setBuiltInZoomControls(true);
-//        myWebView.getSettings().setDisplayZoomControls(false);
-//        myWebView.getSettings().setUseWideViewPort(true);
+        myWebView.getSettings().setSupportZoom(true);
+        myWebView.getSettings().setBuiltInZoomControls(true);
+        myWebView.getSettings().setDisplayZoomControls(false);
+        myWebView.getSettings().setUseWideViewPort(true);
         myWebView.addJavascriptInterface(model.getWAI(), id_app);
         myWebView.loadUrl(addr);
         return view;

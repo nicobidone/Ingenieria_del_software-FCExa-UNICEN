@@ -10,6 +10,7 @@ public class RegionsViewModel extends ViewModel {
 
     private final MutableLiveData<Object> selected = new MutableLiveData<>();
     private RegionsWebAppInterface wai;
+    private String code;
 
     public void select(Object item) {
         selected.setValue(item);
@@ -27,5 +28,7 @@ public class RegionsViewModel extends ViewModel {
         this.wai = wai;
     }
 
-
+    public void setCode(String subContinentId) {
+        this.wai.setCode(subContinentId);
+    }
 }

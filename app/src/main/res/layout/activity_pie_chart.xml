@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".piechart.PieChartActivity">
-    
+
     <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/piechart">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
     </com.github.mikephil.charting.charts.PieChart>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerview"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

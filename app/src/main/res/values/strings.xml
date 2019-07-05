@@ -30,7 +30,7 @@
     <string name="button_opacity">Opacity</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD4kyr1zB6g2bqB_N99QpofixA4xPovy7U</string>
-    <string name="mapbox_access_token">pk.eyJ1IjoiaWFyYWFsZmFyb2x1dHoiLCJhIjoiY2p4Z29pcXkzMDJtNjNvcnhkeGVjNTNseSJ9.jSgYo-ffMz7mrZbocrnQhg</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiamFjcnV6IiwiYSI6ImNqeHA2ZW5nMTBlZmgzbW54NWVzOGFnZ3YifQ.vIHdqKskt-CAGHy6-Tq_Mg</string>
     <string name="san_francisco">San Francisco</string>
     <string name="los_angeles">Los Angeles</string>
     <string name="seattle">Seattle</string>

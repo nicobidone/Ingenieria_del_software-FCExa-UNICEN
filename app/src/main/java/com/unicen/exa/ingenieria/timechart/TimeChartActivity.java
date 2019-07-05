@@ -13,22 +13,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
-import com.google.android.gms.maps.model.LatLng;
 import com.unicen.exa.ingenieria.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -99,15 +90,15 @@ public class TimeChartActivity extends AppCompatActivity {
         JSONArray array = new JSONArray(json);
         for (int i = 0; i < array.length(); i++) {
             JSONArray object = array.getJSONArray(i);
-            if (data.containsKey(object.getString(3))) {
-                ArrayList<ItemDownload> l = data.get(object.getString(3));
-                l.add(new ItemDownload(object.getString(2), 1));
-                data.put(object.getString(3),l);
+            if (data.containsKey(object.getString(1))) {//cambiado
+                ArrayList<ItemDownload> l = data.get(object.getString(1));//cambiado
+                l.add(new ItemDownload(object.getString(5), 2));
+                data.put(object.getString(1),l);//cambiado
             }
             else{
                 ArrayList<ItemDownload> l = new ArrayList<ItemDownload>();
-                l.add(new ItemDownload(object.getString(2), 1));
-                data.put(object.getString(3),l);
+                l.add(new ItemDownload(object.getString(5), 2));
+                data.put(object.getString(1),l);//cambiado
             }
         }
 

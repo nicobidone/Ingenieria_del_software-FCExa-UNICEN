@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -27,7 +29,9 @@ public class PieChartActivity extends AppCompatActivity {
 
     private HashMap<String, Integer> result;
     private PieChart piechart;
-    private static final int MINIMO = 20;
+    private static int TOTAL = 0;
+    private static final double PORCENTAJE_MINIMO = 0.02;
+    private HashMap<String, Integer> otros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,9 @@ public class PieChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pie_chart);
 
         result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
+        for (String key: result.keySet()){
+            TOTAL+=result.get(key);
+        }
         piechart = findViewById(R.id.piechart);
 
         piechart.setUsePercentValues(false);
@@ -45,12 +52,15 @@ public class PieChartActivity extends AppCompatActivity {
         piechart.getLegend().setEnabled(false);
         ArrayList<PieEntry> entry = new ArrayList<PieEntry>();
         int count = 0;
+        otros = new HashMap<String, Integer>();
 
         for( String key: result.keySet()){
-            if(result.get(key) > MINIMO)
+            if(result.get(key) > TOTAL*PORCENTAJE_MINIMO)
                 entry.add(new PieEntry(result.get(key), key));
-            else
-                count+=result.get(key);
+            else {
+                count += result.get(key);
+                otros.put(key, result.get(key));
+            }
             //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
         }
         entry.add(new PieEntry(count, "Otros"));
@@ -60,6 +70,7 @@ public class PieChartActivity extends AppCompatActivity {
         PieData data = new PieData(dataset);
 
         piechart.setData(data);
+        initRecyclerView(otros);
         piechart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -77,6 +88,13 @@ public class PieChartActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void initRecyclerView(HashMap<String, Integer> otros){
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(otros, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     ArrayList<Integer> getColorArray(){

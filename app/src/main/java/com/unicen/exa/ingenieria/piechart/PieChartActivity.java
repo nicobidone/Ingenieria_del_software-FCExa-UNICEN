@@ -35,15 +35,28 @@ public class PieChartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
 
+        int otrosCount = 0;
+        otros = new HashMap<>();
         result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
         for (String key: result.keySet()){
             TOTAL+=result.get(key);
+            if(result.get(key) < TOTAL*PORCENTAJE_MINIMO){
+                otrosCount += result.get(key);
+                otros.put(key, result.get(key));
+            }
         }
-        piechart = findViewById(R.id.piechart);
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(otros);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        
+        piechart = findViewById(R.id.piechart);
         piechart.setUsePercentValues(false);
         piechart.setDrawHoleEnabled(true);
         piechart.setHoleColor(Color.WHITE);
@@ -51,26 +64,19 @@ public class PieChartActivity extends AppCompatActivity {
         piechart.getDescription().setText("");
         piechart.getLegend().setEnabled(false);
         ArrayList<PieEntry> entry = new ArrayList<PieEntry>();
-        int count = 0;
-        otros = new HashMap<String, Integer>();
 
         for( String key: result.keySet()){
             if(result.get(key) > TOTAL*PORCENTAJE_MINIMO)
                 entry.add(new PieEntry(result.get(key), key));
-            else {
-                count += result.get(key);
-                otros.put(key, result.get(key));
-            }
-            //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
-        }
-        entry.add(new PieEntry(count, "Otros"));
+        } //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
+
+        entry.add(new PieEntry(otrosCount, "Otros"));
         PieDataSet dataset = new PieDataSet(entry, "countries");
         dataset.setColors(getColorArray());
-
         PieData data = new PieData(dataset);
 
         piechart.setData(data);
-        initRecyclerView(otros);
+
         piechart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -86,16 +92,8 @@ public class PieChartActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
-    public void initRecyclerView(HashMap<String, Integer> otros){
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(otros, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
 
     ArrayList<Integer> getColorArray(){
         ArrayList<Integer> out =new ArrayList<>();

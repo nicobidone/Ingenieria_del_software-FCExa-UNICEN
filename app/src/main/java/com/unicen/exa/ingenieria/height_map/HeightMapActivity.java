@@ -88,7 +88,7 @@ public class HeightMapActivity extends AppCompatActivity implements OnMapReadyCa
             for (Feature feature : features) {
                 String country = feature.getStringProperty("name");
                 if (result.containsKey(country))
-                    feature.addNumberProperty("e", result.get(country)*100);
+                    feature.addNumberProperty("e", result.get(country)*500);
                 else
                     feature.addNumberProperty("e", 0);
             }

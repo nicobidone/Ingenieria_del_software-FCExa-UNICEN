@@ -1,7 +1,6 @@
 package com.unicen.exa.ingenieria.piechart;
 
-import android.content.Context;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,33 +15,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private HashMap<String, Integer> result;
+    private HashMap<String, Integer> data;
     private ArrayList<String> keys;
-    private Context mcontext;
-    Bundle bundle;
+    private static final String TAG = "RecyclerViewAdapter";
 
-    public RecyclerViewAdapter(HashMap<String, Integer> result, Context mcontext){
-        this.result = result;
-        this.mcontext = mcontext;
-        this.keys = new ArrayList<String>();
-        for(String k: result.keySet())
-            this.keys.add(k);
+    public RecyclerViewAdapter(HashMap<String, Integer> in){
+        Log.d(TAG, "RecyclerViewAdapter: In: "+in);
+//        data = new HashMap<>();
+//        keys = new ArrayList<>();
+//        for(String key : in.keySet()){
+//            data.put(key,in.get(key));
+//            keys.add(key);
+//        }
+
+        data = new HashMap<>();
+        data.put("HOLAAAAAAAAAAAA",3);
+        keys = new ArrayList<>(data.keySet());
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        Log.d(TAG, "onCreateViewHolder: ");
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Log.d(TAG, "onBindViewHolder: ");
         String country = keys.get(position);
         viewHolder.item.setText(country);
         int count = 0;
-        if(result.containsKey(country))
-            count = result.get(country);
+        if(data.containsKey(country))
+            count = data.get(country);
         viewHolder.item_count.setText(String.valueOf(count));
     }
 

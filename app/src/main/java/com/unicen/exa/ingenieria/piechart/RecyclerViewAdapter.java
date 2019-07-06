@@ -1,6 +1,5 @@
 package com.unicen.exa.ingenieria.piechart;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,35 +13,35 @@ import com.unicen.exa.ingenieria.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+
     private HashMap<String, Integer> data;
     private ArrayList<String> keys;
     private static final String TAG = "RecyclerViewAdapter";
 
-    public RecyclerViewAdapter(HashMap<String, Integer> in){
-        Log.d(TAG, "RecyclerViewAdapter: In: "+in);
-//        data = new HashMap<>();
-//        keys = new ArrayList<>();
-//        for(String key : in.keySet()){
-//            data.put(key,in.get(key));
-//            keys.add(key);
-//        }
-
+    public RecyclerViewAdapter() {
         data = new HashMap<>();
-        data.put("HOLAAAAAAAAAAAA",3);
         keys = new ArrayList<>(data.keySet());
+    }
+
+    public HashMap<String, Integer> getData() {
+        return data;
+    }
+
+    public void setData(HashMap<String, Integer> data) {
+        this.data = new HashMap<>(data);
+        keys = new ArrayList<>(this.data.keySet());
+        notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        Log.d(TAG, "onCreateViewHolder: ");
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Log.d(TAG, "onBindViewHolder: ");
         String country = keys.get(position);
         viewHolder.item.setText(country);
         int count = 0;

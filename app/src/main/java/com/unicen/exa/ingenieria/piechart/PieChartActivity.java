@@ -1,9 +1,7 @@
 package com.unicen.exa.ingenieria.piechart;
 
 import android.graphics.Color;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,73 +15,89 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.unicen.exa.ingenieria.R;
 
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public class PieChartActivity extends AppCompatActivity {
 
     private static final String TAG = "PieChartActivity";
 
-    private HashMap<String, Integer> result;
-    private PieChart piechart;
+    HashMap<String, Integer> data;
+    HashMap<String, Integer> otros;
     private static int TOTAL = 0;
     private static final double PORCENTAJE_MINIMO = 0.02;
-    private HashMap<String, Integer> otros;
+    PieChart pieChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
 
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final RecyclerViewAdapter adapter = new RecyclerViewAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        initData();
+
         int otrosCount = 0;
         otros = new HashMap<>();
-        result = (HashMap<String, Integer>) getIntent().getSerializableExtra("result");
-        for (String key: result.keySet()){
-            TOTAL+=result.get(key);
-            if(result.get(key) < TOTAL*PORCENTAJE_MINIMO){
-                otrosCount += result.get(key);
-                otros.put(key, result.get(key));
+        for (String key : data.keySet()) {
+            TOTAL += data.get(key);
+            if (data.get(key) < TOTAL * PORCENTAJE_MINIMO) {
+                otrosCount += data.get(key);
+                otros.put(key, data.get(key));
             }
         }
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(otros);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        pieChart = findViewById(R.id.piechart);
+        pieChart.setUsePercentValues(false);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
+        pieChart.getDescription().setText("");
+        pieChart.getLegend().setEnabled(false);
+        pieChart.disableScroll();
+        pieChart.setRotationEnabled(false);
+        ArrayList<PieEntry> entrys = new ArrayList<PieEntry>();
 
-        
-        piechart = findViewById(R.id.piechart);
-        piechart.setUsePercentValues(false);
-        piechart.setDrawHoleEnabled(true);
-        piechart.setHoleColor(Color.WHITE);
-        piechart.setTransparentCircleRadius(61f);
-        piechart.getDescription().setText("");
-        piechart.getLegend().setEnabled(false);
-        ArrayList<PieEntry> entry = new ArrayList<PieEntry>();
 
-        for( String key: result.keySet()){
-            if(result.get(key) > TOTAL*PORCENTAJE_MINIMO)
-                entry.add(new PieEntry(result.get(key), key));
+        for (String key : data.keySet()) {
+            if (data.get(key) > TOTAL * PORCENTAJE_MINIMO)
+                entrys.add(new PieEntry(data.get(key), key));
         } //si hay tiempo podriamos listar los paises correspondientes a otros con sus cantidades
 
-        entry.add(new PieEntry(otrosCount, "Otros"));
-        PieDataSet dataset = new PieDataSet(entry, "countries");
+        entrys.add(new PieEntry(otrosCount, "Otros"));
+        final PieDataSet dataset = new PieDataSet(entrys, "countries");
         dataset.setColors(getColorArray());
         PieData data = new PieData(dataset);
 
-        piechart.setData(data);
+        pieChart.setData(data);
 
-        piechart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: highlight " + h.toString());
-                int nro = (int) h.getY();
+                PieEntry entry = (PieEntry) e;
+                int nro = (int) entry.getValue();
                 String txt = String.valueOf(nro);
-                Toast.makeText(PieChartActivity.this,txt,Toast.LENGTH_LONG).show();
+                Toast.makeText(PieChartActivity.this, txt, Toast.LENGTH_LONG).show();
+
+
+                String label = entry.getLabel();
+                if (label.equals("Otros"))
+                    adapter.setData(otros);
+                else {
+                    HashMap<String, Integer> oneRelevantCountry = new HashMap<>();
+                    oneRelevantCountry.put(label, nro);
+                    adapter.setData(oneRelevantCountry);
+                }
             }
 
             @Override
@@ -95,8 +109,31 @@ public class PieChartActivity extends AppCompatActivity {
     }
 
 
-    ArrayList<Integer> getColorArray(){
-        ArrayList<Integer> out =new ArrayList<>();
+    private void initData() {
+        TOTAL = 0;
+        InputStream inputStream = getResources().openRawResource(R.raw.data);
+        data = new HashMap<String, Integer>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                data.put(row[1], Integer.valueOf(row[2]));
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Error in reading CSV file: " + ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Error while closing input stream: " + e);
+            }
+        }
+    }
+
+
+    ArrayList<Integer> getColorArray() {
+        ArrayList<Integer> out = new ArrayList<>();
 
         Integer color;
         color = getResources().getColor(R.color.md_red_500);
